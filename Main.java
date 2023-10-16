@@ -1,6 +1,8 @@
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 class Animal {
-    protected String Nome;
+    public String Nome;
 
     public Animal(String nome) {
         this.Nome = nome;
@@ -37,16 +39,25 @@ class Gato extends Animal {
 public class Main {
     public static void main(String[] args) {
 
-        Animal animal = new Animal("Animal genérico");
-        System.out.println("Nome do animal: " + animal);
 
-        Animal cachorro = new Cachorro("Spike");
+        Animal Cachorro = new Cachorro("Spike");
+        System.out.println("o nome do cachorro é" + Cachorro);
+        Cachorro.emitirSom();
+        Animal Gato = new Gato("cat");
+        System.out.println("o nome do gato é " + Gato);
+        Gato.emitirSom();
 
-        Animal gato = new Gato("cat");
 
-        cachorro.emitirSom();
-        gato.emitirSom();
+        List<Animal> animais = new ArrayList<>();
+        animais.add(Cachorro);
+        animais.add(Gato);
 
+        List<Animal> cachorrosFiltrados = animais.stream()
+                .filter(a -> a instanceof Cachorro)
+                .collect(Collectors.toList());
+
+        System.out.println("Cachorros:");
+        cachorrosFiltrados.forEach(a -> System.out.println(a.Nome));
 
     }
 }
